@@ -7,7 +7,24 @@ $sql = "CREATE DATABASE IF NOT EXISTS cookbook
 
 $sql = "CREATE TABLE users (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, user VARCHAR(32) NOT NULL, hash VARCHAR(255) NOT NULL)";
 
-$sql = "ALTER TABLE recipes ADD UNIQUE INDEX path (path)";
+$sql =
+    "CREATE TABLE `auth_tokens` (
+        `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        `selector` char(12),
+        `validator` char(255),
+        `user_id` integer(11) not null,
+        `expires` datetime
+    )";
+$sql = "CREATE UNIQUE INDEX `selector` ON auth_tokens (selector)";
+
+$sql = "create table logins (
+	id  INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username varchar(16) not null,
+	ip_address int(11) unsigned not null,
+	attempted datetime not null,
+	success int null
+)";
+$sql = "create index attempted_idx	on logins (attempted)";
 
 $sql = "CREATE TABLE IF NOT EXISTS ingredients (
 			id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -31,6 +48,7 @@ $sql = "CREATE TABLE IF NOT EXISTS recipes (
 			created DATETIME NOT NULL DEFAULT 0,
 			modified DATETIME NOT NULL DEFAULT 0
 		)";
+$sql = "ALTER TABLE recipes ADD UNIQUE INDEX path (path)";
 
 $sql = "CREATE TABLE IF NOT EXISTS recipes_ingredients (
 			id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

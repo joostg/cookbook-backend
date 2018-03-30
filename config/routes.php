@@ -5,8 +5,8 @@
 $app->add(function ($request, $response, $next) {
 	$uri = $uri = $request->getUri()->getPath();
 
-	if (!isset($_SESSION['user']) && strpos($uri, '/achterkant') === 0) {
-		if ($uri != '/login') {
+	if (!isset($_SESSION['user'])) {
+	    if ($uri != '/login') {
 			$_SESSION['returnUrl'] = $uri;
 
 			return $response->withHeader('Location', '/login');
@@ -36,6 +36,7 @@ $app->get('/achterkant', '\Dashboard:view');
  * ====================== */
 $app->get('/login', '\User:login');
 $app->post('/login', '\User:authenticate');
+$app->post('/restore-cookie', '\User:restoreCookie');
 $app->get('/logout', '\User:logout');
 
 /* ===============
