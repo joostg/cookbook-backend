@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <h1>Recept editor</h1>
 
-            <form method="post" action="/achterkant/recepten/opslaan" id="recipe">
+            <form method="post" action="{{ data.global.base_url }}/recepten/opslaan" id="recipe">
                 <div class="col-md-6">
                     {% if id %}
                         <div class="form-group">

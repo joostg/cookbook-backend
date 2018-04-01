@@ -2,7 +2,7 @@
 
 class Quantity extends Base
 {
-	public function admin_list($request, $response, $args)
+	public function list($request, $response, $args)
 	{
 		$sql = "SELECT 
 					id,
@@ -15,10 +15,10 @@ class Quantity extends Base
 
 		$data['quantities'] = $stmt->fetchAll();
 
-		return $this->view->render($response, 'quantity/admin_list.tpl', $data);
+		return $this->render($response, $data);
 	}
 
-	public function admin_edit($request, $response, $args)
+	public function edit($request, $response, $args)
 	{
 		$data = array();
 		if (array_key_exists('id', $args)) {
@@ -36,10 +36,10 @@ class Quantity extends Base
 			$data['quantity'] = $stmt->fetch();
 		}
 
-		return $this->view->render($response, 'quantity/admin_edit.tpl', $data);
+		return $this->render($response, $data);
 	}
 
-	public function admin_save($request, $response, $args)
+	public function save($request, $response, $args)
 	{
 		$post = $request->getParsedBody();
 
@@ -77,6 +77,6 @@ class Quantity extends Base
 			]);
 		}
 
-		return $response->withHeader('Location', '/achterkant/hoeveelheden');
+		return $response->withHeader('Location', $this->baseUrl . 'hoeveelheden');
 	}
 }

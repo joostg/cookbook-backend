@@ -1,12 +1,51 @@
 <?php
 abstract class Base {
+	protected $baseUrl;
 	protected $ci;
+	protected $db;
+	protected $view;
+	protected $slugify;
 
 	public function __construct(Slim\Container $ci) {
 		$this->ci = $ci;
 		$this->db = $this->ci->get('db');
 		$this->view = $this->ci->get('view');
 		$this->slugify = $this->ci->get('slugify');
+		$this->baseUrl = $this->ci->get('settings')->get('base_url');
+	}
+	
+	protected function render($response, array $data, $file = null)
+	{
+		$file = $this->getTemplateFile($file);
+		
+		$template = strtolower(get_class($this)) . '/' . $file . '.tpl';
+		
+		$data['global'] = array(
+			'base_url' => $this->baseUrl,
+		);
+
+		return $this->view->render($response, $template, $data);
+	}
+
+	/**
+	 * Determines template file to use from calling method name if not explicitly given
+	 *
+	 * @param null $file the template file name to use, if different from calling method name
+	 * @return string the template file name to use
+	 */
+	protected function getTemplateFile($file = null)
+	{
+		if ($file !== null) {
+			return $file;
+		}
+
+		$trace = debug_backtrace(false, 3);
+		array_shift($trace); // removes this method call
+		array_shift($trace); // removes render() method call
+		$caller = array_shift($trace); // gets calling method name
+		$file = $caller['function'];
+
+		return $file;
 	}
 
     protected function random_string($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')

@@ -4,9 +4,14 @@ class User extends Base
 {
     public function login($request, $response, $args)
     {
+        /*$insert = $this->db->prepare("INSERT INTO users (user, hash) VALUES (?,?)");
+        $insert->execute(array(
+           'joost',password_hash('banaan',PASSWORD_DEFAULT)
+        ));*/
+
         // Attempt to restore logged in user from cookie first. If successful redirect to returnUrl
         if ($this->restoreCookie()) {
-            $uri = '/';
+            $uri = $this->baseUrl;
             if ($_SESSION['returnUrl']) {
                 $uri = $_SESSION['returnUrl'];
             }
@@ -45,14 +50,14 @@ class User extends Base
             }
         }
     
-        return $response->withHeader('Location', '/login');
+        return $response->withHeader('Location', $this->baseUrl . 'login');
     }
 
     public function logout($request, $response, $args)
     {
         session_destroy();
 
-        return $response->withHeader('Location', '/login');
+        return $response->withHeader('Location', $this->baseUrl . 'login');
     }
 
     function restoreCookie()
@@ -163,7 +168,7 @@ class User extends Base
         setcookie('onsreceptenboek[selector]', "", $expires->getTimestamp(), '/');
         setcookie('onsreceptenboek[validator]', "", $expires->getTimestamp(), '/');
 
-        header('Location: /user/login');
+        header('Location: ' . $this->baseUrl . 'user/login');
         die();
     }
 

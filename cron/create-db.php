@@ -28,12 +28,14 @@ $sql = "create index attempted_idx	on logins (attempted)";
 
 $sql = "CREATE TABLE IF NOT EXISTS ingredients (
 			id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-			name VARCHAR(50) NOT NULL
+			name VARCHAR(50) NOT NULL,
+			plural VARCHAR(50)
 		)";
 
 $sql = "CREATE TABLE IF NOT EXISTS quantities (
 			id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-			name VARCHAR(50) NOT NULL
+			name VARCHAR(50) NOT NULL,
+			plural VARCHAR(50)
 		)";
 
 $sql = "CREATE TABLE IF NOT EXISTS recipes (
@@ -55,7 +57,8 @@ $sql = "CREATE TABLE IF NOT EXISTS recipes_ingredients (
 			recipe_id INT NOT NULL,
 			ingredient_id INT NOT NULL,
 			quantity_id INT,
-			quantity DOUBLE(10,2)
+			quantity DOUBLE(10,2),
+			`position` INT
 		)";
 
 $sql = "ALTER TABLE recipes_ingredients ADD INDEX recipe_id (recipe_id)";

@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <h1>Hoeveelheid {% if quantity.id %}wijzigen{% else %}toevoegen{% endif %}</h1>
 
-            <form method="post" action="/achterkant/hoeveelheden/opslaan" id="recipe">
+            <form method="post" action="{{ data.global.base_url }}/hoeveelheden/opslaan" id="recipe">
                 <div class="col-md-6">
                     {% if quantity.id %}
                         <div class="form-group">

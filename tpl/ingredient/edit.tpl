@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <h1>Ingrediënt {% if ingredient.id %}wijzigen{% else %}toevoegen{% endif %}</h1>
 
-            <form method="post" action="/achterkant/ingredienten/opslaan" id="recipe">
+            <form method="post" action="{{ data.global.base_url }}/ingredienten/opslaan" id="recipe">
                 <div class="col-md-6">
                     {% if ingredient.id %}
                         <div class="form-group">

@@ -31,6 +31,7 @@ $container['logger'] = function($c) {
 // connect to DB
 $container['db'] = function ($c) {
 	$db = $c['settings']['db'];
+	unset($c['settings']['db']);
 	$pdo = new PDO("mysql:host=" . $db['host'] . ";charset=utf8;dbname=" . $db['dbname'],
 		$db['user'], $db['pass']);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -19,17 +19,7 @@ $app->add(function ($request, $response, $next) {
 /* =================
  * Frontend Homepage
  * ================= */
-$app->get('/', '\Home:view');
-
-/* ================
- * Frontend Recipes
- * ================ */
-$app->get('/recept/{path}', '\Recipe:view');
-
-/* =================
- * Backend Dashboard
- * ================= */
-$app->get('/achterkant', '\Dashboard:view');
+$app->get('/', '\Dashboard:view');
 
 /* ======================
  * Backend Authentication
@@ -42,20 +32,20 @@ $app->get('/logout', '\User:logout');
 /* ===============
  * Backend Recipes
  * =============== */
-$app->get('/achterkant/recepten', '\Recipe:admin_list');
-$app->get('/achterkant/recepten/wijzigen[/{id}]', '\Recipe:admin_edit');
-$app->post('/achterkant/recepten/opslaan[/{id}]', '\Recipe:admin_save');
+$app->get('/recepten', '\Recipe:list');
+$app->get('/recepten/wijzigen[/{id}]', '\Recipe:edit');
+$app->post('/recepten/opslaan[/{id}]', '\Recipe:save');
 
 /* ===================
  * Backend Ingredients
  * =================== */
-$app->get('/achterkant/ingredienten', '\Ingredient:admin_list');
-$app->get('/achterkant/ingredienten/wijzigen[/{id}]', '\Ingredient:admin_edit');
-$app->post('/achterkant/ingredienten/opslaan[/{id}]', '\Ingredient:admin_save');
+$app->get('/ingredienten', '\Ingredient:list');
+$app->get('/ingredienten/wijzigen[/{id}]', '\Ingredient:edit');
+$app->post('/ingredienten/opslaan[/{id}]', '\Ingredient:save');
 
 /* ==================
  * Backend Quantities
  * ================== */
-$app->get('/achterkant/hoeveelheden', '\Quantity:admin_list');
-$app->get('/achterkant/hoeveelheden/wijzigen[/{id}]', '\Quantity:admin_edit');
-$app->post('/achterkant/hoeveelheden/opslaan[/{id}]', '\Quantity:admin_save');
+$app->get('/hoeveelheden', '\Quantity:list');
+$app->get('/hoeveelheden/wijzigen[/{id}]', '\Quantity:edit');
+$app->post('/hoeveelheden/opslaan[/{id}]', '\Quantity:save');

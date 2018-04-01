@@ -1,13 +1,13 @@
 {% extends 'layout/dashboard.tpl' %}
 
-{% block title %}Ingrediënten{% endblock %}
+{% block title %}Hoeveelheden{% endblock %}
 
 {% block content %}
     <div class="container theme-showcase" role="main">
         <div class="col-md-12">
-            <h1>Ingrediënten</h1>
-            <a href="/achterkant/ingredienten/wijzigen" class="btn btn-default active" >
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ingrediënt toevoegen
+            <h1>Hoeveelheden</h1>
+            <a href="{{ data.global.base_url }}/hoeveelheden/wijzigen" class="btn btn-default active" >
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hoeveelheid toevoegen
             </a>
         </div>
 
@@ -15,21 +15,21 @@
             <table class="table">
                 <tr>
                     <th>Wijzigen</th>
-                    <th>Ingrediënt</th>
+                    <th>Hoeveelheid</th>
                     <th>Meervoud</th>
                 </tr>
-               {% for ingredient in ingredients %}
+               {% for quantity in quantities %}
                    <tr>
                        <td>
-                           <a href="/achterkant/ingredienten/wijzigen/{{ ingredient.id }}">
+                           <a href="{{ data.global.base_url }}/hoeveelheden/wijzigen/{{ quantity.id }}">
                                 <span class="glyphicon glyphicon-pencil"></span>
                            </a>
                        </td>
                        <td>
-                           {{ ingredient.name }}
+                           {{ quantity.name }}
                        </td>
                        <td>
-                           {{ ingredient.plural }}
+                           {{ quantity.plural }}
                        </td>
                    </tr>
                {% endfor %}
